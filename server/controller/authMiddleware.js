@@ -1,14 +1,14 @@
 
 
 import jwt from 'jsonwebtoken';
-
+import { SECRET_KEY} from '../controller/userCntrl.js'
 
 export const VerifyToken = async(req,res,next)=>{
     try{
 
         const token = req.header("Authorization");
         if (!token) return res.status(401).send("Access Denied");
-        const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const verified = jwt.verify(token, SECRET_KEY);
         req.user = verified.id;
         next();
 

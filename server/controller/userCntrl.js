@@ -1,5 +1,6 @@
 import USER from '../models/user.js';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import DEPARTMENT from '../models/Department.js'
 
 
 
@@ -54,9 +55,21 @@ export const Login = async(req,res)=>{
 export const addDepartment = async(req,res)=>{
     try {
          
-        const { email, password} = req.body;
+        const { dept_name, description} = req.body;
 
-    
+        if(!dept_name){
+            return res.status(404).json({ message:"Department name is required!"})
+        }
+
+        const newDep = new DEPARTMENT({
+            department:dept_name,
+            description: description,
+        });
+
+        await newDep.save();
+
+        return res.status(200).json({ message:'Department added sucssfully'});
+
     
     } catch (error) {
         console.log(error)

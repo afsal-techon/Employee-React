@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from  '../../services/axios'
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -23,10 +23,9 @@ const AddDepartments = () => {
        e.preventDefault();
        try {
                const {data} = await axios.post('/add-department',department);
+               console.log(data,'data come')
                navigate('/admin-dashboard/departments')
                toast.success(data.message)
-
-        
        } catch (err) {
              toast.error(err?.response?.data?.message);
        }
