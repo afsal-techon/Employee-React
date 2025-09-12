@@ -75,3 +75,25 @@ export const addDepartment = async(req,res)=>{
         console.log(error)
     }
 }
+
+
+export const getDepartment = async(req,res)=>{
+    try {
+         
+        const userId = req.user;
+        console.log(userId,'user id')
+
+       const user = await USER.findById(userId);
+       if(!user){
+        return res.status(400).json({ message:'User not found!'})
+       }
+
+        const departments = await DEPARTMENT.find({ })
+
+        return res.status(200).json(departments);
+
+    
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -8,8 +8,8 @@ export const VerifyToken = async(req,res,next)=>{
 
         const token = req.header("Authorization");
         if (!token) return res.status(401).send("Access Denied");
-        const verified = jwt.verify(token, SECRET_KEY);
-        req.user = verified.id;
+        const verified = jwt.verify(token, SECRET_KEY);  
+        req.user = verified._id    
         next();
 
     }catch(err){
