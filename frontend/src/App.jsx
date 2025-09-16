@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminSummary from "./components/Dashboard/AdminSummary";
 import DepartList from "./components/Departments/DepartList";
 import AddDepartments from "./components/Departments/AddDepartments";
+import EditDepartment from "./components/Departments/EditDepartment";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route index element={<AdminSummary/>}></Route>
         <Route path="/admin-dashboard/departments" element={<DepartList/>}></Route>
          <Route path="/admin-dashboard/add-department" element={<AddDepartments/>}></Route>
+         <Route path="/admin-dashboard/department/:deptId" element={<EditDepartment/>}></Route>
           </Route>
 
 

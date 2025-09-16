@@ -81,7 +81,7 @@ export const getDepartment = async(req,res)=>{
     try {
          
         const userId = req.user;
-        console.log(userId,'user id')
+       
 
        const user = await USER.findById(userId);
        if(!user){
@@ -89,11 +89,81 @@ export const getDepartment = async(req,res)=>{
        }
 
         const departments = await DEPARTMENT.find({ })
-
+       
         return res.status(200).json(departments);
 
     
     } catch (error) {
         console.log(error)
+        return res.status(500).json({ message:'Internal server error'})
+    }
+}
+
+export const getOneDepartment = async(req,res)=>{
+    try {
+         const { deptId } = req.params;
+        const userId = req.user;
+
+       const user = await USER.findById(userId);
+       if(!user){
+        return res.status(400).json({ message:'User not found!'})
+       }
+
+        const department = await DEPARTMENT.findById(deptId);
+
+        return res.status(200).json(department);
+
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message:'Internal server error'})
+    }
+}
+
+export const updateDepartment = async(req,res)=>{
+    try {
+        console.log(req.body,'body')
+        
+        const { deptId, dept_name, description} = req.body;
+
+        if(!dept_name){
+            return res.status(404).json({ message:"Department name is required!"})
+        }
+
+         await DEPARTMENT.updateOne({_id:deptId},{$set:{
+            department:dept_name,
+            description:description
+         }})
+
+
+        return res.status(200).json({ message:'Department Updated sucssfully'});
+
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message:'Internal server error'})
+    }
+}
+
+
+export const deleteDepartment = async(req,res)=>{
+    try {
+        
+        
+        const { deptId} = req.params;
+        
+
+        if(!deptId){
+            return res.status(404).json({ message:"Department Id not found!"})
+        }
+
+         await DEPARTMENT.findByIdAndDelete(deptId)
+
+        return res.status(200).json({ message:'Department deleted sucssfully'});
+
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message:'Internal server error'})
     }
 }
