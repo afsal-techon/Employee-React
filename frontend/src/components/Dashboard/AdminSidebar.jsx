@@ -14,7 +14,7 @@ const AdminSidebar = () => {
           <span>Dashboard</span>
         </NavLink>
 
-        <NavLink to="/admin-dashboard"  className='flex gap-5 items-center hover:bg-teal-600 p-2 rounded-sm'>
+        <NavLink to="/admin-dashboard/employees"   className={ ({isActive})=> `${isActive ? "bg-teal-600" :""} flex gap-5 items-center hover:bg-teal-600 p-2 rounded-sm`}>
           <FaUser />
           <span>Employee</span>
         </NavLink>
