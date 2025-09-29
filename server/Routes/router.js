@@ -1,10 +1,10 @@
 import express from 'express';
-import { addDepartment, deleteDepartment, getDepartment, getOneDepartment, Login, updateDepartment } from '../controller/userCntrl.js';
+import { addDepartment, deleteDepartment, getDepartment, getOneDepartment, Login, register, updateDepartment } from '../controller/userCntrl.js';
 import {  VerifyToken } from '../controller/authMiddleware.js'
 
 const router = express.Router();
 
-
+router.post('/register',register)
 router.post('/login',Login);
 router.post('/add-department',VerifyToken,addDepartment);
 router.get('/departments',VerifyToken,getDepartment)

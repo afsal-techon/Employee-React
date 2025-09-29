@@ -24,6 +24,42 @@ export const userRegister = async()=>{
     }
 }
 
+export const register = async(req,res)=>{
+    try {
+         
+        const { name,email,password} = req.body;
+
+        if(!name){
+            return res.status(400).json({ message:"Name is required!"})
+        }
+         if(!email){
+            return res.status(400).json({ message:"Email is required!"})
+        }
+         if(!password){
+            return res.status(400).json({ message:"Password is required!"})
+        }
+
+        const existEmial = await USER.findOne({ email });
+        if(existEmial){
+            return res.status(400).json({ message:"User already exist this email!"})
+        }
+
+      const user =   await USER.create({ 
+            name,
+            email,
+            password,
+            role:"admin"
+        });
+
+        const token = jwt.sign({_id:user._id,role:user.role},
+            SECRET_KEY ,{expiresIn:"10d"});
+
+            return res.status(200).json({ message:'Registeration successful',token,user})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 export const Login = async(req,res)=>{
